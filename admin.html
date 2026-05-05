@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="admin.html" class="active">Админ-панель</a></li>
+                    <li><a href="#" id="logoutBtn" class="btn btn-outline">Выйти</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="margin-top: 120px; margin-bottom: 60px;">
+        <h2>👑 Админ-панель</h2>
+        
+        <!-- Управление курсами -->
+        <div style="margin: 30px 0;">
+            <h3>📚 Управление курсами</h3>
+            <button id="addCourseBtn" class="btn btn-primary" style="margin-bottom: 20px;">➕ Добавить курс</button>
+            <div id="coursesList"></div>
+        </div>
+        
+        <!-- Пользователи -->
+        <div style="margin: 30px 0;">
+            <h3>👥 Пользователи</h3>
+            <div id="usersList"></div>
+        </div>
+        
+        <!-- Статистика -->
+        <div style="margin: 30px 0;">
+            <h3>📊 Статистика</h3>
+            <div id="stats" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;"></div>
+            <canvas id="statsChart" style="max-width: 500px; max-height: 300px;"></canvas>
+        </div>
+        
+        <!-- Отправка уведомлений -->
+        <div style="margin: 30px 0; background: var(--light-color); padding: 25px; border-radius: 20px;">
+            <h3>📨 Отправить уведомление пользователю</h3>
+            <select id="userIdSelect" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--gray-light);">
+                <option value="">-- Выберите пользователя --</option>
+            </select>
+            <textarea id="notifyMessage" rows="3" placeholder="Текст уведомления..." style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--gray-light);"></textarea>
+            <input type="text" id="notifyLink" placeholder="Ссылка (необязательно)" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--gray-light);">
+            <button id="sendNotifyBtn" class="btn btn-primary">📤 Отправить</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script>
+        let currentAdmin = null;
+        let allCourses = [];
+        let allUsers = [];
+        let allEnrollments = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await openDB();
+            
+            const userId = sessionStorage.getItem('userId');
+            if (!userId) {
+                alert('Сначала войдите в аккаунт');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            allUsers = await getAllUsers();
+            currentAdmin = allUsers.find(u => u.id == userId);
+            
+            if (!currentAdmin || currentAdmin.role !== 'admin') {
+                alert('Доступ только для администратора');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            await loadData();
+            
+            document.getElementById('addCourseBtn').addEventListener('click', addNewCourse);
+            document.getElementById('sendNotifyBtn').addEventListener('click', sendNotification);
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                sessionStorage.removeItem('userId');
+                window.location.href = 'index.html';
+            });
+            
+            // Заполняем список пользователей для уведомлений
+            const select = document.getElementById('userIdSelect');
+            select.innerHTML = '<option value="">-- Выберите пользователя --</option>' + 
+                allUsers.map(u => `<option value="${u.id}">${u.email} (${u.role})</option>`).join('');
+        });
+        
+        async function loadData() {
+            allCourses = await getAllCourses();
+            allUsers = await getAllUsers();
+            
+            // Собираем все записи
+            allEnrollments = [];
+            for (const user of allUsers) {
+                const enrolls = await getEnrollmentsByUser(user.id);
+                allEnrollments.push(...enrolls);
+            }
+            
+            renderCourses();
+            renderUsers();
+            renderStats();
+        }
+        
+        function renderCourses() {
+            const container = document.getElementById('coursesList');
+            if (!container) return;
+            
+            container.innerHTML = allCourses.map(course => `
+                <div style="border:1px solid var(--gray-light); border-radius:16px; padding:20px; margin-bottom:15px; background:white;">
+                    <h4>${escapeHtml(course.title)}</h4>
+                    <p>${escapeHtml(course.description)}</p>
+                    <p>💰 ${course.price === 0 ? 'Бесплатно' : course.price + ' ₽'} | ⏱ ${course.duration} | 👥 ${course.students || 0} студентов</p>
+                    <button onclick="editCourse(${course.id})" class="btn btn-secondary">✏ Редактировать</button>
+                    <button onclick="deleteCourseConfirm(${course.id})" class="btn btn-outline" style="border-color:#e65c5c;">🗑 Удалить</button>
+                </div>
+            `).join('');
+        }
+        
+        function renderUsers() {
+            const container = document.getElementById('usersList');
+            if (!container) return;
+            
+            container.innerHTML = allUsers.map(user => `
+                <div style="border:1px solid var(--gray-light); border-radius:16px; padding:15px; margin-bottom:10px; background:white;">
+                    <strong>${escapeHtml(user.name || user.email)}</strong> (${user.email})<br>
+                    Роль: ${user.role} | ID: ${user.id}
+                </div>
+            `).join('');
+        }
+        
+        function renderStats() {
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-card">📚 Курсов: ${allCourses.length}</div>
+                <div class="stat-card">👥 Пользователей: ${allUsers.length}</div>
+                <div class="stat-card">📝 Записей: ${allEnrollments.length}</div>
+            `;
+            
+            // График
+            const ctx = document.getElementById('statsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: allCourses.map(c => c.title.length > 15 ? c.title.slice(0,12)+'...' : c.title),
+                    datasets: [{
+                        label: 'Студентов на курсе',
+                        data: allCourses.map(c => c.students || 0),
+                        backgroundColor: '#ffb3b3',
+                        borderColor: '#e65c5c',
+                        borderWidth: 1
+                    }]
+                }
+            });
+        }
+        
+        async function addNewCourse() {
+            const title = prompt('Название курса:');
+            if (!title) return;
+            const desc = prompt('Описание:');
+            const price = parseInt(prompt('Цена (0 - бесплатно):')) || 0;
+            const duration = prompt('Длительность (например, 30 дней):');
+            
+            await addCourse({ 
+                title, 
+                description: desc, 
+                price, 
+                duration, 
+                students: 0 
+            });
+            await loadData();
+            alert('✅ Курс добавлен!');
+        }
+        
+        window.editCourse = async (id) => {
+            const course = allCourses.find(c => c.id === id);
+            if (!course) return;
+            const newTitle = prompt('Название:', course.title);
+            const newDesc = prompt('Описание:', course.description);
+            const newPrice = parseInt(prompt('Цена:', course.price));
+            const newDuration = prompt('Длительность:', course.duration);
+            
+            // Обновляем через updateCourse из database.js
+            if (window.updateCourse) {
+                await updateCourse(id, { 
+                    title: newTitle || course.title, 
+                    description: newDesc || course.description, 
+                    price: isNaN(newPrice) ? course.price : newPrice,
+                    duration: newDuration || course.duration
+                });
+            } else {
+                // Простое обновление через перезапись
+                course.title = newTitle || course.title;
+                course.description = newDesc || course.description;
+                course.price = isNaN(newPrice) ? course.price : newPrice;
+                course.duration = newDuration || course.duration;
+                alert('Обновление требует доработки БД');
+            }
+            await loadData();
+            alert('✅ Курс обновлён!');
+        };
+        
+        window.deleteCourseConfirm = async (id) => {
+            if (confirm('Удалить курс? Это действие нельзя отменить.')) {
+                // Удаление через database.js
+                if (window.deleteCourse) {
+                    await deleteCourse(id);
+                } else {
+                    alert('Функция удаления в разработке');
+                }
+                await loadData();
+                alert('✅ Курс удалён');
+            }
+        };
+        
+        async function sendNotification() {
+            const userId = document.getElementById('userIdSelect').value;
+            const message = document.getElementById('notifyMessage').value.trim();
+            const link = document.getElementById('notifyLink').value.trim();
+            
+            if (!userId || !message) {
+                alert('Выберите пользователя и введите текст уведомления');
+                return;
+            }
+            
+            if (window.addNotification) {
+                await window.addNotification({
+                    userId: parseInt(userId),
+                    message: message,
+                    link: link || null,
+                    date: new Date().toISOString(),
+                    read: false
+                });
+                alert('✅ Уведомление отправлено!');
+            } else {
+                // Сохраняем в localStorage как временное решение
+                const notifications = JSON.parse(localStorage.getItem('vertex_notifications') || '[]');
+                notifications.push({
+                    userId: parseInt(userId),
+                    message: message,
+                    link: link || null,
+                    date: new Date().toISOString(),
+                    read: false
+                });
+                localStorage.setItem('vertex_notifications', JSON.stringify(notifications));
+                alert('✅ Уведомление отправлено (сохранено в localStorage)!');
+            }
+            
+            document.getElementById('notifyMessage').value = '';
+            document.getElementById('notifyLink').value = '';
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        // Мобильное меню
+        document.getElementById('navToggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
