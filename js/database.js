@@ -189,3 +189,55 @@ window.getAllCourses = getAllCourses;
 window.addEnrollment = addEnrollment;
 window.getEnrollmentsByUser = getEnrollmentsByUser;
 window.addAIInteraction = addAIInteraction;
+
+
+// ========== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ АДМИНКИ ==========
+
+async function updateCourse(id, updatedData) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction('courses', 'readwrite');
+        const store = tx.objectStore('courses');
+        const request = store.get(id);
+        request.onsuccess = () => {
+            const course = request.result;
+            if (!course) { reject(new Error('Курс не найден')); return; }
+            Object.assign(course, updatedData);
+            const updateRequest = store.put(course);
+            updateRequest.onsuccess = () => resolve();
+            updateRequest.onerror = () => reject(updateRequest.error);
+        };
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function deleteCourse(id) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const request = db.transaction('courses', 'readwrite').objectStore('courses').delete(id);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function addNotification(notification) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        if (!db.objectStoreNames.contains('notifications')) {
+            // Если хранилища нет, создаём
+            db.close();
+            indexedDB.deleteDatabase(DB_NAME);
+            window.location.reload();
+            reject(new Error('База данных обновляется, обновите страницу'));
+            return;
+        }
+        const request = db.transaction('notifications', 'readwrite').objectStore('notifications').add(notification);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+// Добавляем в глобальный доступ
+window.updateCourse = updateCourse;
+window.deleteCourse = deleteCourse;
+window.addNotification = addNotification;
