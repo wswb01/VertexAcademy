@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форум - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Дополнительные стили для форума */
+        .forum-container {
+            margin-top: 120px;
+            margin-bottom: 60px;
+        }
+        
+        .forum-header {
+            background: linear-gradient(135deg, #e65c5c, #ff8a8a);
+            padding: 40px;
+            border-radius: 30px;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .forum-header h1 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .forum-category {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .forum-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(230, 92, 92, 0.15);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffe6e6, #ffb3b3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .category-icon i {
+            font-size: 24px;
+            color: #e65c5c;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-stats {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: var(--gray-color);
+        }
+        
+        .category-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .last-topic {
+            font-size: 0.8rem;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-light);
+            margin-top: 12px;
+        }
+        
+        .btn-forum {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+        
+        /* Темы форума */
+        .topics-section {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .topics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .topic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--gray-light);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .topic-info {
+            flex: 2;
+        }
+        
+        .topic-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .topic-title a {
+            text-decoration: none;
+            color: var(--dark-color);
+        }
+        
+        .topic-title a:hover {
+            color: var(--primary-color);
+        }
+        
+        .topic-meta {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+        
+        .topic-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--gray-color);
+        }
+        
+        .topic-badge {
+            background: #ffe6e6;
+            color: #e65c5c;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .new-topic-form {
+            background: var(--light-color);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .new-topic-form input,
+        .new-topic-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-light);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        
+        .new-topic-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .auth-warning {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-color);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html">Поддержка</a></li>
+                    <li><a href="forum.html" class="active">Форум</a></li>
+                    <li><a href="login.html" class="btn btn-outline guest-only">Войти</a></li>
+                    <li><a href="#" class="btn btn-outline auth-only" id="logoutBtn" style="display:none;">Выйти</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container forum-container">
+        <div class="forum-header">
+            <h1><i class="fas fa-comments"></i> Форум Vertex Academy</h1>
+            <p>Общайтесь, задавайте вопросы и делитесь опытом с другими студентами</p>
+        </div>
+
+        <div class="forum-categories">
+            <div class="forum-category">
+                <div class="category-icon"><i class="fas fa-cube"></i></div>
+                <h3 class="category-title">Обсуждение курсов</h3>
+                <p>Вопросы по урокам, заданиям и материалам курсов</p>
+                <div class="category-stats">
+                    <span><i class="far fa-comment-dots"></i> 156 тем</span>
+                    <span><i class="far fa-message"></i> 1,234 сообщения</span>
+                </div>
+                <div class="last-topic">📌 Последняя тема: "Помогите с риггингом персонажа"</div>
+                <a href="#" class="btn btn-secondary btn-forum" style="margin-top: 15px; display: inline-block;">Перейти</a>
+            </div>
+
+            <div class="forum-category">
+                <div class="category-icon"><i class="fas fa-briefcase"></i></div>
+                <h3 class="category-title">Карьера и работа</h3>
+                <p>Вакансии, фриланс, портфолио и трудоустройство</p>
+                <div class="category-stats">
+                    <span><i class="far fa-comment-dots"></i> 89 тем</span>
+                    <span><i class="far fa-message"></i> 567 сообщений</span>
+                </div>
+                <div class="last-topic">📌 Последняя тема: "Где искать первых заказчиков?"</div>
+                <a href="#" class="btn btn-secondary btn-forum" style="margin-top: 15px; display: inline-block;">Перейти</a>
+            </div>
+
+            <div class="forum-category">
+                <div class="category-icon"><i class="fas fa-tools"></i></div>
+                <h3 class="category-title">Техподдержка</h3>
+                <p>Проблемы с платформой, технические вопросы</p>
+                <div class="category-stats">
+                    <span><i class="far fa-comment-dots"></i> 234 темы</span>
+                    <span><i class="far fa-message"></i> 1,890 сообщений</span>
+                </div>
+                <div class="last-topic">📌 Последняя тема: "Не загружается видеоурок"</div>
+                <a href="#" class="btn btn-secondary btn-forum" style="margin-top: 15px; display: inline-block;">Перейти</a>
+            </div>
+
+            <div class="forum-category">
+                <div class="category-icon"><i class="fas fa-palette"></i></div>
+                <h3 class="category-title">Портфолио и работы</h3>
+                <p>Покажите свои работы и получите обратную связь</p>
+                <div class="category-stats">
+                    <span><i class="far fa-comment-dots"></i> 312 тем</span>
+                    <span><i class="far fa-message"></i> 2,456 сообщений</span>
+                </div>
+                <div class="last-topic">📌 Последняя тема: "Мой первый персонаж в Blender"</div>
+                <a href="#" class="btn btn-secondary btn-forum" style="margin-top: 15px; display: inline-block;">Перейти</a>
+            </div>
+        </div>
+
+        <!-- Последние темы -->
+        <div class="topics-section">
+            <div class="topics-header">
+                <h3><i class="fas fa-fire"></i> Последние обсуждения</h3>
+                <button class="btn btn-primary" id="newTopicBtn">➕ Создать тему</button>
+            </div>
+
+            <div id="topicsList">
+                <div class="topic-item">
+                    <div class="topic-info">
+                        <div class="topic-title"><a href="#">Как улучшить качество рендера в Cycles?</a></div>
+                        <div class="topic-meta">Автор: <strong>Алексей</strong> • 2 часа назад</div>
+                    </div>
+                    <div class="topic-stats">
+                        <span><i class="far fa-comment"></i> 12 ответов</span>
+                        <span><i class="far fa-eye"></i> 156 просмотров</span>
+                        <span class="topic-badge">🔥 Горячая тема</span>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-info">
+                        <div class="topic-title"><a href="#">Курс по текстурированию — не могу понять PBR</a></div>
+                        <div class="topic-meta">Автор: <strong>Мария</strong> • вчера</div>
+                    </div>
+                    <div class="topic-stats">
+                        <span><i class="far fa-comment"></i> 8 ответов</span>
+                        <span><i class="far fa-eye"></i> 89 просмотров</span>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-info">
+                        <div class="topic-title"><a href="#">Какие плагины для Blender посоветуете?</a></div>
+                        <div class="topic-meta">Автор: <strong>Дмитрий</strong> • 3 дня назад</div>
+                    </div>
+                    <div class="topic-stats">
+                        <span><i class="far fa-comment"></i> 23 ответа</span>
+                        <span><i class="far fa-eye"></i> 342 просмотра</span>
+                        <span class="topic-badge">⭐ Популярное</span>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-info">
+                        <div class="topic-title"><a href="#">Ищу команду для создания инди-игры</a></div>
+                        <div class="topic-meta">Автор: <strong>Иван</strong> • 5 дней назад</div>
+                    </div>
+                    <div class="topic-stats">
+                        <span><i class="far fa-comment"></i> 5 ответов</span>
+                        <span><i class="far fa-eye"></i> 67 просмотров</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма создания новой темы (скрыта по умолчанию) -->
+        <div id="newTopicForm" class="new-topic-form" style="display: none;">
+            <h3>➕ Создать новую тему</h3>
+            <form id="createTopicForm">
+                <select id="topicCategory" required>
+                    <option value="">Выберите категорию</option>
+                    <option value="courses">Обсуждение курсов</option>
+                    <option value="career">Карьера и работа</option>
+                    <option value="tech">Техподдержка</option>
+                    <option value="portfolio">Портфолио и работы</option>
+                </select>
+                <input type="text" id="topicTitle" placeholder="Заголовок темы" required>
+                <textarea id="topicContent" placeholder="Содержание сообщения..." required></textarea>
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+                <button type="button" class="btn btn-outline" id="cancelTopicBtn">Отмена</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script>
+        // Проверка авторизации
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await openDB();
+            
+            const userId = sessionStorage.getItem('userId');
+            if (userId) {
+                const users = await getAllUsers();
+                currentUser = users.find(u => u.id == userId);
+            }
+            
+            updateUI();
+            
+            // Обработчики кнопок
+            document.getElementById('newTopicBtn').addEventListener('click', () => {
+                if (!currentUser) {
+                    alert('Для создания темы нужно войти в аккаунт');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                document.getElementById('newTopicForm').style.display = 'block';
+            });
+            
+            document.getElementById('cancelTopicBtn').addEventListener('click', () => {
+                document.getElementById('newTopicForm').style.display = 'none';
+            });
+            
+            document.getElementById('createTopicForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('✅ Тема создана! (демо-режим)');
+                document.getElementById('newTopicForm').style.display = 'none';
+                document.getElementById('createTopicForm').reset();
+            });
+            
+            document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                sessionStorage.removeItem('userId');
+                window.location.reload();
+            });
+        });
+        
+        function updateUI() {
+            const guestBtns = document.querySelectorAll('.guest-only');
+            const authBtns = document.querySelectorAll('.auth-only');
+            
+            if (currentUser) {
+                guestBtns.forEach(btn => btn.style.display = 'none');
+                authBtns.forEach(btn => btn.style.display = 'inline-block');
+            } else {
+                guestBtns.forEach(btn => btn.style.display = 'inline-block');
+                authBtns.forEach(btn => btn.style.display = 'none');
+            }
+        }
+        
+        // Мобильное меню
+        document.getElementById('navToggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все курсы - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка и навигация -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html" class="active">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html">Поддержка</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Войти</a></li>
+                </ul>
+                
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Хлебные крошки -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Главная</a>
+                <span><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Все курсы</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Герой секция курсов -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-hero-title">Все курсы</h1>
+                <p class="page-hero-description">Выберите курс, который подходит именно вам. От основ до продвинутых техник 3D-моделирования.</p>
+                
+                <div class="page-hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">курсов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">120+</span>
+                        <span class="stat-label">часов обучения</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">направлений</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Фильтры курсов -->
+    <section class="course-filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">Все курсы</button>
+                    <button class="filter-tab" data-filter="beginner" id="beginner">Для начинающих</button>
+                    <button class="filter-tab" data-filter="modeling" id="modeling">Моделирование</button>
+                    <button class="filter-tab" data-filter="animation">Анимация</button>
+                    <button class="filter-tab" data-filter="texturing">Текстурирование</button>
+                </div>
+                
+                <div class="filter-sort">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="popular">По популярности</option>
+                        <option value="new">Сначала новые</option>
+                        <option value="price-low">По цене (сначала дешевые)</option>
+                        <option value="price-high">По цене (сначала дорогие)</option>
+                        <option value="duration">По длительности</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Все курсы -->
+    <section class="all-courses">
+        <div class="container">
+            <div class="courses-grid extended">
+                <!-- Курс 1 -->
+                <div class="course-card featured" data-category="beginner modeling">
+                    <div class="course-badge">Популярный</div>
+                    <div class="course-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3 class="course-title">Blender за 30 дней</h3>
+                    <p class="course-description">Освоите самый популярный бесплатный 3D-редактор с нуля. От основ интерфейса до сложного моделирования.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 30 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                        <span class="course-price">Бесплатно</span>
+                    </div>
+                    <a href="course-blender.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 2 -->
+                <div class="course-card" data-category="modeling">
+                    <div class="course-icon">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3 class="course-title">Создание игрового персонажа</h3>
+                    <p class="course-description">Полный пайплайн: от концепта до текстурированного персонажа для игр.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 45 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Средний</span>
+                        <span class="course-price">12 900 ₽</span>
+                    </div>
+                    <a href="course-character.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 3 -->
+                <div class="course-card" data-category="texturing">
+                    <div class="course-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3 class="course-title">Основы текстурирования</h3>
+                    <p class="course-description">PBR-текстурирование в Substance Painter и Photoshop для реалистичных материалов.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 25 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                        <span class="course-price">8 900 ₽</span>
+                    </div>
+                    <a href="course-texturing.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 4 -->
+                <div class="course-card" data-category="beginner">
+                    <div class="course-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3 class="course-title">Основы 3D-моделирования</h3>
+                    <p class="course-description">Введение в мир 3D: базовые понятия, простые модели и работа с примитивами.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 20 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                        <span class="course-price">Бесплатно</span>
+                    </div>
+                    <a href="course-basics.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 5 -->
+                <div class="course-card" data-category="animation">
+                    <div class="course-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="course-title">Анимация персонажей в Blender</h3>
+                    <p class="course-description">Основы риггинга и анимации персонажей для игр и короткометражек.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 40 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Средний</span>
+                        <span class="course-price">14 900 ₽</span>
+                    </div>
+                    <a href="course-animation.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 6 -->
+                <div class="course-card" data-category="modeling">
+                    <div class="course-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="course-title">Архитектурная визуализация</h3>
+                    <p class="course-description">Создание реалистичных интерьеров и экстерьеров для архитектурных проектов.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 35 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Средний</span>
+                        <span class="course-price">16 900 ₽</span>
+                    </div>
+                    <a href="course-archviz.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 7 -->
+                <div class="course-card" data-category="texturing">
+                    <div class="course-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="course-title">Substance Designer для продвинутых</h3>
+                    <p class="course-description">Создание сложных процедурных материалов для игровой индустрии.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 30 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Продвинутый</span>
+                        <span class="course-price">18 900 ₽</span>
+                    </div>
+                    <a href="course-substance.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Курс 8 -->
+                <div class="course-card" data-category="beginner">
+                    <div class="course-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="course-title">3D для игр в Unity</h3>
+                    <p class="course-description">Экспорт и настройка 3D-моделей для игрового движка Unity.</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 25 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                        <span class="course-price">10 900 ₽</span>
+                    </div>
+                    <a href="course-unity.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link next">Следующая <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ по курсам -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы о курсах</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Нужны ли специальные знания для начала?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Нет, большинство наших курсов рассчитаны на начинающих. Мы начинаем с самых основ и постепенно переходим к более сложным темам.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Какое оборудование нужно для обучения?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Достаточно компьютера с Windows, macOS или Linux. Для комфортной работы с 3D-редакторами рекомендуется иметь минимум 8 ГБ оперативной памяти и видеокарту с поддержкой OpenGL 3.3+.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Можно ли получить сертификат?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, по окончании каждого платного курса вы получите сертификат Vertex Academy, который можно добавить в портфолио или LinkedIn.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Есть ли рассрочка на платные курсы?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, мы предлагаем рассрочку на все курсы стоимостью от 5 000 рублей. Оформляется прямо на сайте при оплате.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                    <p class="footer-tagline">Освойте профессию будущего уже сегодня!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Обучение</h4>
+                        <ul class="footer-list">
+                            <li><a href="courses.html">Все курсы</a></li>
+                            <li><a href="#beginner">Для начинающих</a></li>
+                            <li><a href="#modeling">Моделирование</a></li>
+                            <li><a href="platform.html#tasks">Задания</a></li>
+                            <li><a href="platform.html#resources">Ресурсы</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Платформа</h4>
+                        <ul class="footer-list">
+                            <li><a href="platform.html">О нас</a></li>
+                            <li><a href="platform.html#pricing">Цены</a></li>
+                            <li><a href="platform.html#career">Карьера</a></li>
+                            <li><a href="platform.html#blog">Блог</a></li>
+                            <li><a href="platform.html#contacts">Контакты</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Поддержка</h4>
+                        <ul class="footer-list">
+                            <li><a href="support.html">FAQ</a></li>
+                            <li><a href="support.html#community">Сообщество</a></li>
+                            <li><a href="support.html#terms">Условия</a></li>
+                            <li><a href="support.html#privacy">Конфиденциальность</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Vertex Academy. Все права защищены.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/courses.js"></script>
+    <script src="js/database.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        await openDB();
+        
+        // Делаем все кнопки "Подробнее" и "Записаться" кликабельными
+        const userId = sessionStorage.getItem('userId');
+        
+        document.querySelectorAll('.course-card .btn-secondary, .course-card .btn-card').forEach(btn => {
+            if (btn.textContent.includes('Подробнее')) {
+                btn.addEventListener('click', (e) => {
+                    const card = btn.closest('.course-card');
+                    const title = card?.querySelector('.course-title')?.textContent || 'Курс';
+                    alert(`🔍 Информация о курсе "${title}" будет доступна позже.`);
+                });
+            }
+        });
+        
+        document.querySelectorAll('.course-card .btn-primary, .course-card .enroll-btn').forEach(btn => {
+            if (btn.textContent.includes('Записаться') || btn.textContent.includes('Начать')) {
+                btn.addEventListener('click', async (e) => {
+                    if (!userId) {
+                        if (confirm('Нужно войти в аккаунт. Перейти на страницу входа?')) {
+                            window.location.href = 'login.html';
+                        }
+                        return;
+                    }
+                    
+                    const card = btn.closest('.course-card');
+                    const title = card?.querySelector('.course-title')?.textContent || 'Курс';
+                    const priceSpan = card?.querySelector('.course-price');
+                    let courseId = 1;
+                    if (title.includes('Blender')) courseId = 1;
+                    else if (title.includes('персонажа')) courseId = 2;
+                    else if (title.includes('текстурирования')) courseId = 3;
+                    
+                    alert(`✅ Вы записаны на курс "${title}"!`);
+                    
+                    // Сохраняем в базу данных
+                    await addEnrollment({
+                        userId: parseInt(userId),
+                        courseId: courseId,
+                        enrolledAt: new Date().toISOString()
+                    });
+                });
+            }
+        });
+    });
+</script>
+<!-- ========== РАБОТАЮЩИЙ AI-ЧАТ ========== -->
+<style>
+.ai-assistant {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ffdbdb;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+.ai-header {
+    background: #e65c5c;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+.ai-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+.ai-messages {
+    height: 250px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #fff5f5;
+}
+.ai-message.bot {
+    background: #e8e8e8;
+    color: #000000 !important;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    margin-bottom: 8px;
+    max-width: 85%;
+    font-size: 14px;
+}
+.ai-message.user {
+    background: #e65c5c;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 8px;
+    margin-left: auto;
+    max-width: 85%;
+}
+.ai-input-area {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #ffdbdb;
+    gap: 8px;
+    background: white;
+    border-radius: 0 0 16px 16px;
+}
+.ai-input-area input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #ffdbdb;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+.ai-input-area input:focus {
+    border-color: #e65c5c;
+}
+.ai-input-area button {
+    width: 38px;
+    height: 38px;
+    background: #e65c5c;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+<div class="ai-assistant" id="aiAssistant">
+    <div class="ai-header">
+        <strong>🤖 AI-помощник Vertex</strong>
+        <button class="ai-close" onclick="document.getElementById('aiAssistant').style.display='none'">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot">Здравствуйте! Я помогу выбрать курс или отвечу на вопросы. Спросите меня о курсах, ценах или контактах.</div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Напишите ваш вопрос...">
+        <button id="askAiBtn">➤</button>
+    </div>
+</div>
+
+<script>
+// Логика ответов AI (работает)
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('aiInput');
+    const button = document.getElementById('askAiBtn');
+    const messagesDiv = document.getElementById('aiMessages');
+    
+    if (!button) return;
+    
+    function addMessage(text, isUser = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${isUser ? 'user' : 'bot'}`;
+        msgDiv.textContent = text;
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function getAIResponse(question) {
+        const q = question.toLowerCase();
+        if (q.includes('курс') || q.includes('blender')) {
+            return '🎓 Рекомендую курс "Blender за 30 дней" — подходит для начинающих. Хотите записаться?';
+        } else if (q.includes('цена') || q.includes('стои') || q.includes('руб')) {
+            return '💰 У нас есть бесплатные курсы и платные от 4990 ₽. Напишите, какой курс вас интересует!';
+        } else if (q.includes('контакт') || q.includes('поддержк')) {
+            return '📧 Связаться с нами можно через support@vertex-academy.ru или в разделе "Поддержка" на сайте.';
+        } else if (q.includes('регистрац') || q.includes('войти')) {
+            return '🔐 Для регистрации нажмите на кнопку "Начать бесплатно" на главной странице или перейдите в раздел "Вход".';
+        } else {
+            return '🤔 Я могу ответить на вопросы о курсах, ценах, регистрации или контактах. Что вас интересует?';
+        }
+    }
+    
+    async function askAI() {
+        const question = input.value.trim();
+        if (!question) return;
+        
+        addMessage(question, true);
+        input.value = '';
+        
+        // Имитация задержки ответа
+        setTimeout(() => {
+            const answer = getAIResponse(question);
+            addMessage(answer, false);
+            
+            // Сохраняем в базу данных (если есть)
+            if (window.addAIInteraction && window.currentUserId) {
+                window.addAIInteraction({
+                    userId: window.currentUserId,
+                    question: question,
+                    answer: answer,
+                    date: new Date().toISOString()
+                }).catch(e => console.log('БД не готова'));
+            }
+        }, 500);
+    }
+    
+    button.addEventListener('click', askAI);
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') askAI();
+    });
+});
+</script>
+</body>
+</html>

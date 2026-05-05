@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поддержка - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/support.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка и навигация -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html" class="active">Поддержка</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Войти</a></li>
+                </ul>
+                
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Хлебные крошки -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Главная</a>
+                <span><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Поддержка</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Герой секция поддержки -->
+    <section class="page-hero support-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-hero-title">Поддержка</h1>
+                <p class="page-hero-description">Мы всегда готовы помочь вам с любыми вопросами по обучению, платформе или техническим проблемам.</p>
+                
+                <div class="support-search">
+                    <div class="search-container">
+                        <input type="text" placeholder="Поиск по вопросам и статьям...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основные категории поддержки -->
+    <section class="support-categories">
+        <div class="container">
+            <div class="categories-grid">
+                <a href="#faq" class="category-card">
+                    <div class="category-icon">
+                        <i class="far fa-question-circle"></i>
+                    </div>
+                    <h3 class="category-title">FAQ</h3>
+                    <p class="category-description">Часто задаваемые вопросы и ответы</p>
+                </a>
+                
+                <a href="#community" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="category-title">Сообщество</h3>
+                    <p class="category-description">Форум и чаты для общения</p>
+                </a>
+                
+                <a href="#technical" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="category-title">Техподдержка</h3>
+                    <p class="category-description">Решение технических проблем</p>
+                </a>
+                
+                <a href="#contact" class="category-card">
+                    <div class="category-icon">
+                        <i class="far fa-envelope"></i>
+                    </div>
+                    <h3 class="category-title">Связаться</h3>
+                    <p class="category-description">Написать в поддержку</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+            
+            <div class="faq-categories">
+                <div class="faq-category-tabs">
+                    <button class="faq-category-tab active" data-category="general">Общие вопросы</button>
+                    <button class="faq-category-tab" data-category="courses">Курсы и обучение</button>
+                    <button class="faq-category-tab" data-category="payment">Оплата и доступ</button>
+                    <button class="faq-category-tab" data-category="technical">Технические вопросы</button>
+                </div>
+                
+                <div class="faq-content">
+                    <div class="faq-category-content active" id="general-faq">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Как начать обучение?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Для начала обучения просто зарегистрируйтесь на сайте, выберите интересующий курс и нажмите "Начать обучение". Доступ к бесплатным курсам предоставляется сразу, к платным — после оплаты.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Есть ли у вас мобильное приложение?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Да, наше мобильное приложение доступно для iOS и Android. Вы можете скачать его в App Store и Google Play. В приложении доступны видеоуроки, теория и общение с сообществом.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Могу ли я учиться с телефона?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Да, вы можете смотреть уроки и изучать теорию с телефона. Однако для практических заданий с 3D-редакторами все же потребуется компьютер.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-category-content" id="courses-faq">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Сколько времени занимает прохождение курса?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Длительность курсов варьируется от 20 до 60 дней при занятиях по 1-2 часа в день. Вы можете учиться в своем темпе — доступ к материалам остается навсегда.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Что делать, если я не успеваю сдать задание в срок?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Вы можете сдать задание позже установленного срока. Наставник проверит его, когда освободится. Главное — не пропускать уроки подряд, чтобы не отставать от программы.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-category-content" id="payment-faq">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Какие способы оплаты вы принимаете?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Мы принимаем банковские карты (Visa, Mastercard, Мир), электронные кошельки (ЮMoney, QIWI), а также оплату через Сбербанк Онлайн и Тинькофф.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Можно ли вернуть деньги за курс?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Да, в течение 14 дней с момента оплаты вы можете запросить полный возврат средств, если прошли не более 20% курса. Для этого напишите в поддержку.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Сообщество -->
+    <section class="community-section" id="community">
+    <div class="container">
+        <h2 class="section-title">Наше сообщество</h2>
+        <p class="section-subtitle">Присоединяйтесь к нашему активному сообществу 3D-художников</p>
+        
+        <div class="community-grid">
+            <!-- Discord -->
+            <div class="community-card">
+                <div class="community-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h3 class="community-title">Discord-сервер</h3>
+                <p class="community-description">Активный чат для общения, помощи и обсуждения проектов</p>
+                <a href="#" class="btn btn-secondary">Присоединиться</a>
+            </div>
+            
+            <!-- VK -->
+            <div class="community-card">
+                <div class="community-icon">
+                    <i class="fab fa-vk"></i>
+                </div>
+                <h3 class="community-title">Группа ВКонтакте</h3>
+                <p class="community-description">Новости, анонсы курсов и полезные материалы</p>
+                <a href="https://vk.com/club238417916" class="btn btn-secondary">Подписаться</a>
+            </div>
+            
+            <!-- Telegram -->
+            <div class="community-card">
+                <div class="community-icon">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <h3 class="community-title">Telegram-канал</h3>
+                <p class="community-description">Ежедневные советы и вдохновляющие работы</p>
+                <a href="https://t.me/Vertex_Academyy" class="btn btn-secondary">Подписаться</a>
+            </div>
+            
+            <!-- Форум -->
+            <div class="community-card">
+                <div class="community-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="community-title">Форум</h3>
+                <p class="community-description">Общение с сообществом, обсуждение курсов и проектов</p>
+                <a href="forum.html" class="btn btn-secondary">Перейти на форум</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Условия и политика -->
+    <section class="legal-section">
+        <div class="container">
+            <div class="legal-grid">
+                <div class="legal-card" id="terms">
+                    <h3 class="legal-title">Условия использования</h3>
+                    <p class="legal-description">Правила использования платформы Vertex Academy и наши обязательства перед вами.</p>
+                    <a href="#" class="legal-link">Читать условия <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="legal-card" id="privacy">
+                    <h3 class="legal-title">Политика конфиденциальности</h3>
+                    <p class="legal-description">Как мы собираем, используем и защищаем ваши персональные данные.</p>
+                    <a href="#" class="legal-link">Читать политику <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма обратной связи -->
+    <section class="contact-support" id="contact">
+        <div class="container">
+            <div class="contact-support-content">
+                <div class="contact-info">
+                    <h2 class="section-title">Не нашли ответ на свой вопрос?</h2>
+                    <p>Напишите нам, и мы ответим в течение 24 часов в рабочие дни.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>support@vertex-academy.ru</p>
+                                <span class="response-time">Ответ в течение 24 часов</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <i class="fas fa-comment-dots"></i>
+                            <div>
+                                <h4>Онлайн-чат</h4>
+                                <p>Доступен с 10:00 до 22:00 по МСК</p>
+                                <span class="response-time">Мгновенный ответ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Написать в поддержку</h3>
+                    <form id="supportForm">
+                        <div class="form-group">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="topic">Тема вопроса</label>
+                            <select id="topic" required>
+                                <option value="">Выберите тему</option>
+                                <option value="technical">Техническая проблема</option>
+                                <option value="payment">Оплата и доступ</option>
+                                <option value="course">Вопрос по курсу</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Отправить вопрос</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                    <p class="footer-tagline">Освойте профессию будущего уже сегодня!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Обучение</h4>
+                        <ul class="footer-list">
+                            <li><a href="courses.html">Все курсы</a></li>
+                            <li><a href="courses.html#beginner">Для начинающих</a></li>
+                            <li><a href="courses.html#modeling">Моделирование</a></li>
+                            <li><a href="platform.html#tasks">Задания</a></li>
+                            <li><a href="platform.html#resources">Ресурсы</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Платформа</h4>
+                        <ul class="footer-list">
+                            <li><a href="platform.html#about">О нас</a></li>
+                            <li><a href="platform.html#pricing">Цены</a></li>
+                            <li><a href="platform.html#career">Карьера</a></li>
+                            <li><a href="platform.html#blog">Блог</a></li>
+                            <li><a href="platform.html#contacts">Контакты</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Поддержка</h4>
+                        <ul class="footer-list">
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#community">Сообщество</a></li>
+                            <li><a href="#terms">Условия</a></li>
+                            <li><a href="#privacy">Конфиденциальность</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Vertex Academy. Все права защищены.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/support.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/support.js"></script>
+    <script src="js/database.js"></script>
+
+    <!-- ========== РАБОТАЮЩИЙ AI-ЧАТ ========== -->
+<style>
+.ai-assistant {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ffdbdb;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+.ai-header {
+    background: #e65c5c;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+.ai-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+.ai-messages {
+    height: 250px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #fff5f5;
+}
+.ai-message.bot {
+    background: #e8e8e8;
+    color: #000000 !important;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    margin-bottom: 8px;
+    max-width: 85%;
+    font-size: 14px;
+}
+.ai-message.user {
+    background: #e65c5c;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 8px;
+    margin-left: auto;
+    max-width: 85%;
+}
+.ai-input-area {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #ffdbdb;
+    gap: 8px;
+    background: white;
+    border-radius: 0 0 16px 16px;
+}
+.ai-input-area input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #ffdbdb;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+.ai-input-area input:focus {
+    border-color: #e65c5c;
+}
+.ai-input-area button {
+    width: 38px;
+    height: 38px;
+    background: #e65c5c;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+<div class="ai-assistant" id="aiAssistant">
+    <div class="ai-header">
+        <strong>🤖 AI-помощник Vertex</strong>
+        <button class="ai-close" onclick="document.getElementById('aiAssistant').style.display='none'">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot">Здравствуйте! Я помогу выбрать курс или отвечу на вопросы. Спросите меня о курсах, ценах или контактах.</div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Напишите ваш вопрос...">
+        <button id="askAiBtn">➤</button>
+    </div>
+</div>
+
+<script>
+// Логика ответов AI (работает)
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('aiInput');
+    const button = document.getElementById('askAiBtn');
+    const messagesDiv = document.getElementById('aiMessages');
+    
+    if (!button) return;
+    
+    function addMessage(text, isUser = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${isUser ? 'user' : 'bot'}`;
+        msgDiv.textContent = text;
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function getAIResponse(question) {
+        const q = question.toLowerCase();
+        if (q.includes('курс') || q.includes('blender')) {
+            return '🎓 Рекомендую курс "Blender за 30 дней" — подходит для начинающих. Хотите записаться?';
+        } else if (q.includes('цена') || q.includes('стои') || q.includes('руб')) {
+            return '💰 У нас есть бесплатные курсы и платные от 4990 ₽. Напишите, какой курс вас интересует!';
+        } else if (q.includes('контакт') || q.includes('поддержк')) {
+            return '📧 Связаться с нами можно через support@vertex-academy.ru или в разделе "Поддержка" на сайте.';
+        } else if (q.includes('регистрац') || q.includes('войти')) {
+            return '🔐 Для регистрации нажмите на кнопку "Начать бесплатно" на главной странице или перейдите в раздел "Вход".';
+        } else {
+            return '🤔 Я могу ответить на вопросы о курсах, ценах, регистрации или контактах. Что вас интересует?';
+        }
+    }
+    
+    async function askAI() {
+        const question = input.value.trim();
+        if (!question) return;
+        
+        addMessage(question, true);
+        input.value = '';
+        
+        // Имитация задержки ответа
+        setTimeout(() => {
+            const answer = getAIResponse(question);
+            addMessage(answer, false);
+            
+            // Сохраняем в базу данных (если есть)
+            if (window.addAIInteraction && window.currentUserId) {
+                window.addAIInteraction({
+                    userId: window.currentUserId,
+                    question: question,
+                    answer: answer,
+                    date: new Date().toISOString()
+                }).catch(e => console.log('БД не готова'));
+            }
+        }, 500);
+    }
+    
+    button.addEventListener('click', askAI);
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') askAI();
+    });
+});
+</script>
+</body>
+</html>

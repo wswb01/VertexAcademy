@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="dashboard.html" class="active">Кабинет</a></li>
+                    <li><a href="#" onclick="logout()" class="btn btn-outline">Выйти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="margin-top: 120px; padding: 0 20px;">
+        <div class="container">
+            <h2>👤 Личный кабинет</h2>
+            <div id="myCourses"></div>
+        </div>
+    </main>
+
+    <script src="js/database.js"></script>
+    <script>
+        async function logout() {
+            sessionStorage.removeItem('userId');
+            window.location.href = 'index.html';
+        }
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            await openDB();
+            const userId = sessionStorage.getItem('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const enrollments = await getEnrollmentsByUser(parseInt(userId));
+            const courses = await getAllCourses();
+            const myCourses = courses.filter(c => enrollments.some(e => e.courseId === c.id));
+            
+            const container = document.getElementById('myCourses');
+            if (myCourses.length === 0) {
+                container.innerHTML = '<p>Вы ещё не записаны на курсы. <a href="courses.html">Перейти к курсам</a></p>';
+            } else {
+                container.innerHTML = myCourses.map(c => `
+                    <div class="course-card">
+                        <h3>${c.title}</h3>
+                        <p>${c.description}</p>
+                        <p>Статус: ✅ Активен</p>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>

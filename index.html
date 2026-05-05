@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <span class="logo-icon"><i class="fas fa-cube"></i></span>
+    <title>Vertex Academy - Создание 3D-миров</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Подключение главного JS -->
+<script src="js/main.js" defer></script>
+
+<!-- Мета-теги безопасности и SEO -->
+<meta name="description" content="Vertex Academy - обучение 3D-моделированию">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+</head>
+<body>
+    <!-- Шапка и навигация -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html">Поддержка</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Войти</a></li>
+                    <li><a href="#" class="btn btn-primary">Начать бесплатно</a></li>
+                </ul>
+                
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Начни создавать 3D-миры уже сегодня</h1>
+                <p class="hero-description">Освойте профессию будущего с нуля до уровня профи. Интерактивное обучение, практические задания и поддержка сообщества.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary btn-large">
+                        <span>Начать бесплатно</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="courses.html" class="btn btn-outline btn-large">Смотреть курсы</a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">выпускников</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">250+</span>
+                        <span class="stat-label">трудоустроены</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">средний рейтинг</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="cube">
+                    <div class="cube-face cube-front"></div>
+                    <div class="cube-face cube-back"></div>
+                    <div class="cube-face cube-left"></div>
+                    <div class="cube-face cube-right"></div>
+                    <div class="cube-face cube-top"></div>
+                    <div class="cube-face cube-bottom"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Популярные курсы -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Популярные курсы</h2>
+                <a href="courses.html" class="btn btn-outline">Все курсы <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3 class="course-title">Blender за 30 дней</h3>
+                    <p class="course-description">Освоите самый популярный бесплатный 3D-редактор с нуля</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 30 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                    </div>
+                    <a href="course-blender.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3 class="course-title">Создание игрового персонажа</h3>
+                    <p class="course-description">Полный пайплайн: от концепта до текстурированного персонажа</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 45 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Средний</span>
+                    </div>
+                    <a href="course-character.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3 class="course-title">Основы текстурирования</h3>
+                    <p class="course-description">PBR-текстурирование в Substance Painter и Photoshop</p>
+                    <div class="course-meta">
+                        <span class="course-duration"><i class="far fa-clock"></i> 25 дней</span>
+                        <span class="course-level"><i class="fas fa-signal"></i> Начинающий</span>
+                    </div>
+                    <a href="course-texturing.html" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Почему выбирают нашу платформу -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нашу платформу</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Обучение на практике</h3>
+                    <p class="feature-description">80% времени за 3D-редактором, минимум теории, максимум практики</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="feature-title">Наставники из индустрии</h3>
+                    <p class="feature-description">Опытные 3D-художники с реальными проектами в портфолио</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Карьерный рост</h3>
+                    <p class="feature-description">Подготовка к работе в геймдеве, кино и архитектурной визуализации</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI - помощник</h3>
+                    <p class="feature-description">Автоматическая проверка моделей и персональные рекомендации</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы студентов -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title">Отзывы наших студентов</h2>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <span>АП</span>
+                        </div>
+                        <div class="review-author">
+                            <h4 class="review-name">Алексей Петров</h4>
+                            <p class="review-position">3D-художник в GameDev Studio</p>
+                        </div>
+                    </div>
+                    <p class="review-text">"После курса по Blender устроился junior-моделёром в игровую студию. Обучение было очень практичным"</p>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <span>МС</span>
+                        </div>
+                        <div class="review-author">
+                            <h4 class="review-name">Мария Смирнова</h4>
+                            <p class="review-position">Архитектурный визуализатор</p>
+                        </div>
+                    </div>
+                    <p class="review-text">"Платформа помогла систематизировать знания. Особенно полезны интерактивные задания и обратная связь от преподавателей."</p>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <span>ДИ</span>
+                        </div>
+                        <div class="review-author">
+                            <h4 class="review-name">Дмитрий Иванов</h4>
+                            <p class="review-position">Фрилансер, 3D-моделлер</p>
+                        </div>
+                    </div>
+                    <p class="review-text">"Сообщество очень поддерживает. Всегда можно задать вопрос и получить помощь от более опытных коллег."</p>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA секция -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Готовы начать свой путь в 3D?</h2>
+                <p class="cta-description">Присоединяйтесь к 5000+ студентов, которые уже создают 3D-миры с Vertex Academy</p>
+                <a href="#" class="btn btn-primary btn-large">
+                    <span>Начать бесплатно</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer" id="platform">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                    <p class="footer-tagline">Освойте профессию будущего уже сегодня!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Обучение</h4>
+                        <ul class="footer-list">
+                            <li><a href="courses.html">Все курсы</a></li>
+                            <li><a href="courses.html#beginner">Для начинающих</a></li>
+                            <li><a href="courses.html#modeling">Моделирование</a></li>
+                            <li><a href="platform.html#tasks">Задания</a></li>
+                            <li><a href="platform.html#resources">Ресурсы</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Платформа</h4>
+                        <ul class="footer-list">
+                            <li><a href="platform.html">О нас</a></li>
+                            <li><a href="platform.html#pricing">Цены</a></li>
+                            <li><a href="platform.html#career">Карьера</a></li>
+                            <li><a href="platform.html#blog">Блог</a></li>
+                            <li><a href="platform.html#contacts">Контакты</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Поддержка</h4>
+                        <ul class="footer-list">
+                            <li><a href="support.html">FAQ</a></li>
+                            <li><a href="support.html#community">Сообщество</a></li>
+                            <li><a href="support.html#terms">Условия</a></li>
+                            <li><a href="support.html#privacy">Конфиденциальность</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Vertex Academy. Все права защищены.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <!-- Кнопка для показа статистики -->
+<div style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button onclick="showStatsPanel()" style="background: #333; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+        📊 Показать статистику
+    </button>
+</div>
+
+<script>
+function showStatsPanel() {
+    // Создаем панель статистики
+    let panel = document.getElementById('statsPanel');
+    if(panel) {
+        panel.remove();
+        return;
+    }
+    
+    panel = document.createElement('div');
+    panel.id = 'statsPanel';
+    panel.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #1a1a2e;
+        color: white;
+        padding: 20px;
+        border-radius: 16px;
+        border: 2px solid #667eea;
+        z-index: 10000;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow: auto;
+        font-family: monospace;
+        font-size: 14px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    `;
+    
+    // Получаем статистику
+    const stats = localStorage.getItem('vertex_academy_stats');
+    let statsText = 'Нет данных';
+    if(stats) {
+        try {
+            const data = JSON.parse(stats);
+            statsText = `
+                <h3>📊 Статистика Vertex Academy</h3>
+                <hr>
+                <p><strong>📈 Общая статистика:</strong></p>
+                <ul>
+                    <li>Нажатий "Начать": ${data.totalClicksOnStart || 0}</li>
+                    <li>Отправлено форм: ${data.feedbacksSent || 0}</li>
+                    <li>Запросов к AI: ${data.aiQueries || 0}</li>
+                </ul>
+                <p><strong>📚 Просмотры курсов:</strong></p>
+                <ul>
+                    ${Object.entries(data.courseViews || {}).map(([course, count]) => `<li>${course}: ${count}</li>`).join('') || '<li>Нет данных</li>'}
+                </ul>
+                <p><strong>📄 Посещения страниц:</strong></p>
+                <ul>
+                    ${Object.entries(data.pageVisits || {}).map(([page, count]) => `<li>${page}: ${count}</li>`).join('') || '<li>Нет данных</li>'}
+                </ul>
+                <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 15px; padding: 5px 15px; background: #667eea; border: none; border-radius: 8px; color: white; cursor: pointer;">Закрыть</button>
+            `;
+        } catch(e) {
+            statsText = 'Ошибка чтения данных';
+        }
+    }
+    
+    panel.innerHTML = statsText;
+    document.body.appendChild(panel);
+}
+</script>
+<!-- Подключение базы данных -->
+<script src="js/database.js"></script>
+<script>
+    // Проверка входа при загрузке
+    document.addEventListener('DOMContentLoaded', async () => {
+        await openDB();
+        const userId = sessionStorage.getItem('userId');
+        if (userId) {
+            // Пользователь уже вошёл
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        }
+    });
+    
+    // Функция для кнопки "Выйти"
+    window.logout = function() {
+        sessionStorage.removeItem('userId');
+        window.location.reload();
+    };
+</script>
+<!-- ========== РАБОТАЮЩИЙ AI-ЧАТ ========== -->
+<style>
+.ai-assistant {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ffdbdb;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+.ai-header {
+    background: #e65c5c;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+.ai-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+.ai-messages {
+    height: 250px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #fff5f5;
+}
+.ai-message.bot {
+    background: #e8e8e8;
+    color: #000000 !important;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    margin-bottom: 8px;
+    max-width: 85%;
+    font-size: 14px;
+}
+.ai-message.user {
+    background: #e65c5c;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 8px;
+    margin-left: auto;
+    max-width: 85%;
+}
+.ai-input-area {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #ffdbdb;
+    gap: 8px;
+    background: white;
+    border-radius: 0 0 16px 16px;
+}
+.ai-input-area input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #ffdbdb;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+.ai-input-area input:focus {
+    border-color: #e65c5c;
+}
+.ai-input-area button {
+    width: 38px;
+    height: 38px;
+    background: #e65c5c;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+<div class="ai-assistant" id="aiAssistant">
+    <div class="ai-header">
+        <strong>🤖 AI-помощник Vertex</strong>
+        <button class="ai-close" onclick="document.getElementById('aiAssistant').style.display='none'">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot">Здравствуйте! Я помогу выбрать курс или отвечу на вопросы. Спросите меня о курсах, ценах или контактах.</div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Напишите ваш вопрос...">
+        <button id="askAiBtn">➤</button>
+    </div>
+</div>
+
+<script>
+// Логика ответов AI (работает)
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('aiInput');
+    const button = document.getElementById('askAiBtn');
+    const messagesDiv = document.getElementById('aiMessages');
+    
+    if (!button) return;
+    
+    function addMessage(text, isUser = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${isUser ? 'user' : 'bot'}`;
+        msgDiv.textContent = text;
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function getAIResponse(question) {
+        const q = question.toLowerCase();
+        if (q.includes('курс') || q.includes('blender')) {
+            return '🎓 Рекомендую курс "Blender за 30 дней" — подходит для начинающих. Хотите записаться?';
+        } else if (q.includes('цена') || q.includes('стои') || q.includes('руб')) {
+            return '💰 У нас есть бесплатные курсы и платные от 4990 ₽. Напишите, какой курс вас интересует!';
+        } else if (q.includes('контакт') || q.includes('поддержк')) {
+            return '📧 Связаться с нами можно через support@vertex-academy.ru или в разделе "Поддержка" на сайте.';
+        } else if (q.includes('регистрац') || q.includes('войти')) {
+            return '🔐 Для регистрации нажмите на кнопку "Начать бесплатно" на главной странице или перейдите в раздел "Вход".';
+        } else {
+            return '🤔 Я могу ответить на вопросы о курсах, ценах, регистрации или контактах. Что вас интересует?';
+        }
+    }
+    
+    async function askAI() {
+        const question = input.value.trim();
+        if (!question) return;
+        
+        addMessage(question, true);
+        input.value = '';
+        
+        // Имитация задержки ответа
+        setTimeout(() => {
+            const answer = getAIResponse(question);
+            addMessage(answer, false);
+            
+            // Сохраняем в базу данных (если есть)
+            if (window.addAIInteraction && window.currentUserId) {
+                window.addAIInteraction({
+                    userId: window.currentUserId,
+                    question: question,
+                    answer: answer,
+                    date: new Date().toISOString()
+                }).catch(e => console.log('БД не готова'));
+            }
+        }, 500);
+    }
+    
+    button.addEventListener('click', askAI);
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') askAI();
+    });
+});
+</script>
+</body>
+
+</html>

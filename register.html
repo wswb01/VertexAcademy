@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html">Поддержка</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Вход</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-container">
+        <div class="container">
+            <div class="auth-wrapper">
+                <div class="auth-form-container">
+                    <div class="auth-header">
+                        <h1 class="auth-title">Регистрация</h1>
+                        <p class="auth-subtitle">Создайте новый аккаунт</p>
+                    </div>
+                    
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Имя</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="name" placeholder="Иван" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regEmail" class="form-label">Email</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="regEmail" placeholder="ivan@example.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regPassword" class="form-label">Пароль</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="regPassword" placeholder="Минимум 4 символа" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="confirmPassword" placeholder="Повторите пароль" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block btn-large">Зарегистрироваться</button>
+                        
+                        <div class="auth-footer">
+                            <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="auth-info">
+                    <div class="auth-info-content">
+                        <h2>Присоединяйтесь!</h2>
+                        <p>Начните свой путь в 3D-графике вместе с Vertex Academy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ПОДКЛЮЧАЕМ БАЗУ ДАННЫХ -->
+    <script src="js/database.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const password = document.getElementById('regPassword').value.trim();
+                const confirm = document.getElementById('confirmPassword').value.trim();
+                
+                if (!name || !email || !password) {
+                    alert('Заполните все поля');
+                    return;
+                }
+                
+                if (password !== confirm) {
+                    alert('Пароли не совпадают');
+                    return;
+                }
+                
+                if (password.length < 4) {
+                    alert('Пароль должен быть не менее 4 символов');
+                    return;
+                }
+                
+                try {
+                    await openDB();
+                    
+                    // Проверяем, не занят ли email
+                    const existing = await getUserByEmail(email);
+                    if (existing) {
+                        alert('Пользователь с таким email уже существует');
+                        return;
+                    }
+                    
+                    // Создаём нового пользователя
+                    const newUser = {
+                        email: email,
+                        password: password,
+                        name: name,
+                        role: 'user',
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    const userId = await addUser(newUser);
+                    sessionStorage.setItem('userId', userId);
+                    
+                    alert('✅ Регистрация успешна!');
+                    window.location.href = 'dashboard.html';
+                    
+                } catch(error) {
+                    console.error('Ошибка:', error);
+                    alert('Ошибка регистрации: ' + error.message);
+                }
+            });
+        });
+        
+        // Мобильное меню
+        document.getElementById('navToggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

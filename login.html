@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="platform.html">Платформа</a></li>
+                    <li><a href="support.html">Поддержка</a></li>
+                    <li><a href="register.html" class="btn btn-outline">Регистрация</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-container">
+        <div class="container">
+            <div class="auth-wrapper">
+                <div class="auth-form-container">
+                    <div class="auth-header">
+                        <h1 class="auth-title">Вход в аккаунт</h1>
+                        <p class="auth-subtitle">Введите свои данные для входа</p>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="loginEmail" placeholder="student@test.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword" class="form-label">Пароль</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="loginPassword" placeholder="123456" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block btn-large">Войти</button>
+                        
+                        <div class="auth-footer">
+                            <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+                        </div>
+                        <div class="auth-footer">
+                            <p style="font-size:12px; color:#888;">Тестовый вход: student@test.com / 123456</p>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="auth-info">
+                    <div class="auth-info-content">
+                        <h2>С возвращением!</h2>
+                        <p>Продолжайте обучение 3D-графике вместе с Vertex Academy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ПОДКЛЮЧАЕМ БАЗУ ДАННЫХ -->
+    <script src="js/database.js"></script>
+    <script>
+        // Ждём загрузки страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                
+                console.log('Попытка входа:', email);
+                
+                if (!email || !password) {
+                    alert('Заполните email и пароль');
+                    return;
+                }
+                
+                try {
+                    // Открываем базу данных
+                    await openDB();
+                    console.log('База данных открыта');
+                    
+                    // Ищем пользователя
+                    const user = await getUserByEmail(email);
+                    console.log('Найден пользователь:', user);
+                    
+                    if (!user) {
+                        alert('❌ Пользователь не найден');
+                        return;
+                    }
+                    
+                    if (user.password !== password) {
+                        alert('❌ Неверный пароль');
+                        return;
+                    }
+                    
+                    // Успешный вход
+                    sessionStorage.setItem('userId', user.id);
+                    alert('✅ Добро пожаловать, ' + (user.name || user.email) + '!');
+                    
+                    // Перенаправление
+                    if (user.role === 'admin') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'dashboard.html';
+                    }
+                    
+                } catch(error) {
+                    console.error('Ошибка:', error);
+                    alert('Ошибка при входе: ' + error.message);
+                }
+            });
+        });
+        
+        // Мобильное меню
+        document.getElementById('navToggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

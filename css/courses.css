@@ -1,0 +1,144 @@
+/* Стили для страницы курсов */
+.course-filters {
+    background-color: white;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    padding: 10px 20px;
+    background-color: var(--light-color);
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-tab:hover {
+    background-color: var(--gray-light);
+}
+
+.filter-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.filter-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-select {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-light);
+    font-family: var(--font-primary);
+    background-color: white;
+    cursor: pointer;
+}
+
+.all-courses {
+    background-color: var(--light-color);
+}
+
+.courses-grid.extended {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 60px;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: white;
+    color: var(--dark-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.page-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.page-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.page-link.next {
+    width: auto;
+    padding: 0 20px;
+}
+
+.faq-section {
+    background-color: white;
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--gray-light);
+    padding: 30px 0;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-question h4 {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+.faq-question i {
+    transition: var(--transition);
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer.active {
+    max-height: 500px;
+    padding-top: 20px;
+}
