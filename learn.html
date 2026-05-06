@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучение - Vertex Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/learn.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-icon"><i class="fas fa-cube"></i></span>
+                        <span class="logo-text">Vertex<span class="logo-accent">Academy</span></span>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="courses.html">Курсы</a></li>
+                    <li><a href="dashboard.html">Кабинет</a></li>
+                    <li><a href="#" id="logoutBtn" class="btn btn-outline">Выйти</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main style="margin-top: 80px;">
+        <div class="learn-container" id="learnContainer">
+            <div class="learn-sidebar" id="learnSidebar">
+                <div class="sidebar-header">
+                    <h3 id="courseTitle">Загрузка...</h3>
+                </div>
+                <div class="modules-list" id="modulesList"></div>
+            </div>
+            
+            <div class="learn-content" id="learnContent">
+                <div class="content-header">
+                    <h2 id="lessonTitle">Выберите урок</h2>
+                    <div class="progress-indicator" id="progressIndicator"></div>
+                </div>
+                <div class="content-body" id="contentBody">
+                    <p>Выберите урок из списка слева, чтобы начать обучение.</p>
+                </div>
+                <div class="content-nav" id="contentNav" style="display: none;">
+                    <button id="prevLessonBtn" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Предыдущий</button>
+                    <button id="nextLessonBtn" class="btn btn-primary">Следующий <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script src="js/learn.js"></script>
+</body>
+</html>
