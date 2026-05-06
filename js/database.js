@@ -241,3 +241,71 @@ async function addNotification(notification) {
 window.updateCourse = updateCourse;
 window.deleteCourse = deleteCourse;
 window.addNotification = addNotification;
+
+async function initializeTestData() {
+    const db = await openDB();
+    
+    // Проверяем, есть ли уже пользователи
+    const users = await getAllUsers();
+    if (users.length === 0) {
+        console.log('Добавляем тестовых пользователей...');
+        const tx = db.transaction('users', 'readwrite');
+        const store = tx.objectStore('users');
+        
+        store.add({ 
+            email: 'student@test.com', 
+            password: '123456', 
+            name: 'Студент', 
+            role: 'user', 
+            createdAt: new Date().toISOString() 
+        });
+        store.add({ 
+            email: 'admin@vertex.com', 
+            password: 'admin123', 
+            name: 'Администратор', 
+            role: 'admin', 
+            createdAt: new Date().toISOString() 
+        });
+        
+        await new Promise((resolve, reject) => {
+            tx.oncomplete = resolve;
+            tx.onerror = reject;
+        });
+        console.log('Тестовые пользователи добавлены');
+    }
+    
+    // Проверяем, есть ли уже курсы
+    const courses = await getAllCourses();
+    if (courses.length === 0) {
+        console.log('Добавляем тестовые курсы...');
+        const tx = db.transaction('courses', 'readwrite');
+        const store = tx.objectStore('courses');
+        
+        const testCourses = [
+            { title: 'Blender за 30 дней', description: 'Освоите Blender с нуля', price: 0, duration: '30 дней', students: 0 },
+            { title: 'Создание игрового персонажа', description: 'Полный пайплайн персонажа', price: 12900, duration: '45 дней', students: 0 },
+            { title: 'Основы текстурирования', description: 'PBR-текстурирование', price: 8900, duration: '25 дней', students: 0 },
+            { title: 'Анимация персонажей', description: 'Основы риггинга и анимации', price: 14900, duration: '40 дней', students: 0 },
+            { title: 'Архитектурная визуализация', description: 'Создание интерьеров и экстерьеров', price: 16900, duration: '35 дней', students: 0 }
+        ];
+        
+        for (const course of testCourses) {
+            store.add(course);
+        }
+        
+        await new Promise((resolve, reject) => {
+            tx.oncomplete = resolve;
+            tx.onerror = reject;
+        });
+        console.log('Тестовые курсы добавлены');
+    }
+}
+
+// Вызываем эту функцию после открытия БД
+const originalOpenDB = window.openDB;
+window.openDB = async function() {
+    const db = await originalOpenDB();
+    await initializeTestData();
+    return db;
+};
+
