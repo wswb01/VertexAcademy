@@ -5,7 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Личный кабинет - Vertex Academy</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .course-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-light);
+        }
+        .course-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #2ed573;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-light);
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -21,21 +60,34 @@
                     <li><a href="index.html">Главная</a></li>
                     <li><a href="courses.html">Курсы</a></li>
                     <li><a href="dashboard.html" class="active">Кабинет</a></li>
-                    <li><a href="#" onclick="logout()" class="btn btn-outline">Выйти</a></li>
+                    <li><a href="#" id="logoutBtn" class="btn btn-outline">Выйти</a></li>
                 </ul>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
             </nav>
         </div>
     </header>
 
-    <main style="margin-top: 120px; padding: 0 20px;">
+    <main style="margin-top: 120px; padding: 0 20px 60px;">
         <div class="container">
             <h2>👤 Личный кабинет</h2>
+            <div id="userInfo" style="background: var(--light-color); padding: 20px; border-radius: 16px; margin-bottom: 30px;"></div>
+            <h3>📚 Мои курсы</h3>
             <div id="myCourses"></div>
         </div>
     </main>
 
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Vertex Academy. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/database.js"></script>
     <script>
+        let currentUser = null;
+        
         async function logout() {
             sessionStorage.removeItem('userId');
             window.location.href = 'index.html';
@@ -43,29 +95,85 @@
         
         document.addEventListener('DOMContentLoaded', async () => {
             await openDB();
+            
             const userId = sessionStorage.getItem('userId');
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
             
-            const enrollments = await getEnrollmentsByUser(parseInt(userId));
-            const courses = await getAllCourses();
-            const myCourses = courses.filter(c => enrollments.some(e => e.courseId === c.id));
+            // Загружаем пользователя из БД
+            const users = await getAllUsers();
+            currentUser = users.find(u => u.id == parseInt(userId));
+            
+            if (!currentUser) {
+                sessionStorage.removeItem('userId');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Отображаем информацию о пользователе
+            const userInfoDiv = document.getElementById('userInfo');
+            userInfoDiv.innerHTML = `
+                <p><strong>👋 Привет, ${escapeHtml(currentUser.name || currentUser.email)}!</strong></p>
+                <p>📧 ${escapeHtml(currentUser.email)}</p>
+                <p>🎓 Роль: ${currentUser.role === 'admin' ? 'Администратор' : 'Студент'}</p>
+                <p>📅 Зарегистрирован: ${new Date(currentUser.createdAt).toLocaleDateString('ru-RU')}</p>
+            `;
+            
+            // Загружаем записи пользователя
+            const enrollments = await getEnrollmentsByUser(currentUser.id);
+            const allCourses = await getAllCourses();
+            
+            // Фильтруем курсы, на которые записан пользователь
+            const myCourses = allCourses.filter(c => enrollments.some(e => e.courseId === c.id));
             
             const container = document.getElementById('myCourses');
+            
             if (myCourses.length === 0) {
-                container.innerHTML = '<p>Вы ещё не записаны на курсы. <a href="courses.html">Перейти к курсам</a></p>';
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: var(--light-color); border-radius: 16px;">
+                        <p>📭 Вы ещё не записаны ни на один курс.</p>
+                        <a href="courses.html" class="btn btn-primary" style="margin-top: 15px;">Перейти к курсам</a>
+                    </div>
+                `;
             } else {
                 container.innerHTML = myCourses.map(c => `
                     <div class="course-card">
-                        <h3>${c.title}</h3>
-                        <p>${c.description}</p>
-                        <p>Статус: ✅ Активен</p>
+                        <h3>${escapeHtml(c.title)}</h3>
+                        <p>${escapeHtml(c.description)}</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${Math.random() * 100}%;"></div>
+                        </div>
+                        <p>⏱ Длительность: ${c.duration}</p>
+                        <p>💰 ${c.price === 0 ? 'Бесплатно' : c.price + ' ₽'}</p>
+                        <span class="status-badge">✅ В процессе обучения</span>
+                        <div style="margin-top: 15px;">
+                            <button class="btn btn-secondary" onclick="alert('Продолжить обучение: ${escapeHtml(c.title)}')">📖 Продолжить</button>
+                        </div>
                     </div>
                 `).join('');
             }
+            
+            // Кнопка выхода
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // Мобильное меню
+            document.getElementById('navToggle')?.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
         });
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
     </script>
 </body>
 </html>
+
