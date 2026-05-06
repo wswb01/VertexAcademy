@@ -118,6 +118,7 @@
                         <span class="course-price">Бесплатно</span>
                     </div>
                    <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                   <button class="btn btn-primary enroll-btn" data-course-id="1" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 2 -->
@@ -133,6 +134,7 @@
                         <span class="course-price">12 900 ₽</span>
                     </div>
                     <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                <button class="btn btn-primary enroll-btn" data-course-id="2" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 3 -->
@@ -148,6 +150,7 @@
                         <span class="course-price">8 900 ₽</span>
                     </div>
                    <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="3" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 4 -->
@@ -163,6 +166,7 @@
                         <span class="course-price">Бесплатно</span>
                     </div>
                     <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="4" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 5 -->
@@ -178,6 +182,7 @@
                         <span class="course-price">14 900 ₽</span>
                     </div>
                     <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="5" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 6 -->
@@ -193,6 +198,7 @@
                         <span class="course-price">16 900 ₽</span>
                     </div>
                     <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="6" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 7 -->
@@ -208,6 +214,7 @@
                         <span class="course-price">18 900 ₽</span>
                     </div>
                     <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="7" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
                 
                 <!-- Курс 8 -->
@@ -223,6 +230,7 @@
                         <span class="course-price">10 900 ₽</span>
                     </div>
                   <a href="learn.html?courseId=1" class="btn btn-secondary">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btn-primary enroll-btn" data-course-id="8" style="margin-top:10px;">📚 Записаться на курс</button>
                 </div>
             </div>
             
@@ -544,6 +552,51 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', askAI);
     input.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') askAI();
+    });
+});
+
+    // Добавьте этот код в существующий <script> в конце courses.html
+
+// Обработчики для кнопок "Записаться на курс"
+document.querySelectorAll('.enroll-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        const userId = sessionStorage.getItem('userId');
+        
+        if (!userId) {
+            if (confirm('Нужно войти в аккаунт. Перейти на страницу входа?')) {
+                window.location.href = 'login.html';
+            }
+            return;
+        }
+        
+        const courseId = parseInt(btn.dataset.courseId);
+        const courseTitle = btn.closest('.course-card')?.querySelector('.course-title')?.textContent || 'Курс';
+        
+        try {
+            // Проверяем, не записан ли уже
+            const enrollments = await getEnrollmentsByUser(parseInt(userId));
+            if (enrollments.some(e => e.courseId === courseId)) {
+                alert('✅ Вы уже записаны на этот курс!');
+                return;
+            }
+            
+            // Записываем на курс
+            await addEnrollment({
+                userId: parseInt(userId),
+                courseId: courseId,
+                enrolledAt: new Date().toISOString()
+            });
+            
+            alert(`✅ Вы успешно записаны на курс "${courseTitle}"!`);
+            
+            // Предлагаем перейти к обучению
+            if (confirm('Перейти к обучению?')) {
+                window.location.href = `learn.html?courseId=${courseId}`;
+            }
+        } catch(error) {
+            console.error('Ошибка:', error);
+            alert('Произошла ошибка при записи. Попробуйте позже.');
+        }
     });
 });
 </script>
