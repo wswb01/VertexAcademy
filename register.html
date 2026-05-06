@@ -110,73 +110,87 @@
             </div>
         </div>
     </footer>
-
-    <!-- ПОДКЛЮЧАЕМ БАЗУ ДАННЫХ -->
-    <script src="js/database.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('registerForm');
+<script src="js/database.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        // Открываем БД при загрузке
+        await openDB();
+        
+        const form = document.getElementById('registerForm');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('regEmail').value.trim();
-                const password = document.getElementById('regPassword').value.trim();
-                const confirm = document.getElementById('confirmPassword').value.trim();
-                
-                if (!name || !email || !password) {
-                    alert('Заполните все поля');
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const confirm = document.getElementById('confirmPassword').value.trim();
+            
+            // Валидация
+            if (!name || !email || !password) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('Пароли не совпадают');
+                return;
+            }
+            
+            if (password.length < 4) {
+                alert('Пароль должен быть не менее 4 символов');
+                return;
+            }
+            
+            // Простая валидация email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Введите корректный email');
+                return;
+            }
+            
+            try {
+                // Проверяем, не занят ли email
+                const existing = await getUserByEmail(email);
+                if (existing) {
+                    alert('Пользователь с таким email уже существует');
                     return;
                 }
                 
-                if (password !== confirm) {
-                    alert('Пароли не совпадают');
-                    return;
-                }
+                // Создаём нового пользователя
+                const newUser = {
+                    email: email,
+                    password: password, // В продакшене нужно хэшировать!
+                    name: name,
+                    role: 'user',
+                    createdAt: new Date().toISOString()
+                };
                 
-                if (password.length < 4) {
-                    alert('Пароль должен быть не менее 4 символов');
-                    return;
-                }
+                const userId = await addUser(newUser);
                 
-                try {
-                    await openDB();
-                    
-                    // Проверяем, не занят ли email
-                    const existing = await getUserByEmail(email);
-                    if (existing) {
-                        alert('Пользователь с таким email уже существует');
-                        return;
-                    }
-                    
-                    // Создаём нового пользователя
-                    const newUser = {
-                        email: email,
-                        password: password,
-                        name: name,
-                        role: 'user',
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    const userId = await addUser(newUser);
+                if (userId) {
                     sessionStorage.setItem('userId', userId);
-                    
-                    alert('✅ Регистрация успешна!');
+                    alert('✅ Регистрация успешна! Добро пожаловать, ' + name + '!');
                     window.location.href = 'dashboard.html';
-                    
-                } catch(error) {
-                    console.error('Ошибка:', error);
-                    alert('Ошибка регистрации: ' + error.message);
+                } else {
+                    alert('Ошибка при создании пользователя');
                 }
-            });
+                
+            } catch(error) {
+                console.error('Ошибка регистрации:', error);
+                alert('Ошибка регистрации: ' + error.message);
+            }
         });
         
         // Мобильное меню
         document.getElementById('navToggle')?.addEventListener('click', function() {
             document.querySelector('.nav-menu').classList.toggle('active');
         });
-    </script>
+    });
+</script>
+
+    <!-- ПОДКЛЮЧАЕМ БАЗУ ДАННЫХ -->
+   
 </body>
 </html>
