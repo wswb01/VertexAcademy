@@ -58,7 +58,7 @@ async function loadCourse(courseId) {
     }
     
     document.getElementById('courseTitle').textContent = currentCourse.title;
-    document.title = `${currentCourse.title} - Vertex Academy`;
+    document.title = currentCourse.title + ' - Vertex Academy';
     
     // Загружаем модули
     currentModules = await getModulesByCourse(courseId);
@@ -81,7 +81,7 @@ async function loadCourse(courseId) {
     renderSidebar();
     
     // Загружаем первый урок или сохранённый прогресс
-    const savedLessonId = localStorage.getItem(`last_lesson_${courseId}`);
+    const savedLessonId = localStorage.getItem('last_lesson_' + courseId);
     let firstLesson = null;
     
     for (const module of currentModules) {
@@ -107,25 +107,27 @@ function renderSidebar() {
         
         html += `
             <div class="module-item">
-                <div class="module-header" data-module="${module.id}">
-                    <span>${escapeHtml(module.title)}</span>
+                <div class="module-header" data-module="` + module.id + `">
+                    <span>` + escapeHtml(module.title) + `</span>
                     <div>
-                        <span style="font-size:0.8rem; margin-right:10px;">${completedCount}/${totalCount}</span>
+                        <span style="font-size:0.8rem; margin-right:10px;">` + completedCount + `/` + totalCount + `</span>
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
-                <div class="lessons-list" data-module-lessons="${module.id}">
+                <div class="lessons-list" data-module-lessons="` + module.id + `">
         `;
         
         for (const lesson of module.lessons) {
             const completedIcon = lesson.completed ? '<i class="fas fa-check-circle" style="color:#2ed573;"></i>' : '<i class="far fa-circle"></i>';
             const testIcon = lesson.isTest ? '<i class="fas fa-question-circle"></i>' : '<i class="fas fa-play-circle"></i>';
+            const activeClass = (lesson.id === currentLesson?.id) ? 'active' : '';
+            const completedClass = lesson.completed ? 'completed' : '';
             
             html += `
-                <div class="lesson-item ${lesson.id === currentLesson?.id ? 'active' : ''} ${lesson.completed ? 'completed' : ''}" data-lesson="${lesson.id}">
-                    <div class="lesson-icon">${testIcon}</div>
-                    <div class="lesson-title">${escapeHtml(lesson.title)}</div>
-                    <div class="lesson-status">${completedIcon}</div>
+                <div class="lesson-item ` + activeClass + ` ` + completedClass + `" data-lesson="` + lesson.id + `">
+                    <div class="lesson-icon">` + testIcon + `</div>
+                    <div class="lesson-title">` + escapeHtml(lesson.title) + `</div>
+                    <div class="lesson-status">` + completedIcon + `</div>
                 </div>
             `;
         }
@@ -139,14 +141,15 @@ function renderSidebar() {
     document.querySelectorAll('.module-header').forEach(header => {
         header.addEventListener('click', () => {
             const moduleId = header.dataset.module;
-            const lessonsList = document.querySelector(`.lessons-list[data-module-lessons="${moduleId}"]`);
+            const lessonsList = document.querySelector('.lessons-list[data-module-lessons="' + moduleId + '"]');
             header.classList.toggle('expanded');
-            lessonsList.classList.toggle('active');
+            if (lessonsList) lessonsList.classList.toggle('active');
         });
         // Раскрываем первый модуль
-        if (header.dataset.module == currentModules[0]?.id) {
+        if (currentModules.length > 0 && header.dataset.module == currentModules[0].id) {
             header.classList.add('expanded');
-            document.querySelector(`.lessons-list[data-module-lessons="${currentModules[0].id"]`).classList.add('active');
+            const firstList = document.querySelector('.lessons-list[data-module-lessons="' + currentModules[0].id + '"]');
+            if (firstList) firstList.classList.add('active');
         }
     });
     
@@ -163,7 +166,7 @@ async function loadLesson(lessonId) {
     if (!currentLesson) return;
     
     // Сохраняем последний урок
-    localStorage.setItem(`last_lesson_${currentCourse.id}`, lessonId);
+    localStorage.setItem('last_lesson_' + currentCourse.id, lessonId);
     
     // Обновляем активный класс в боковой панели
     document.querySelectorAll('.lesson-item').forEach(item => {
@@ -181,7 +184,7 @@ async function loadLesson(lessonId) {
     if (currentLesson.isTest) {
         await renderTest(contentBody);
     } else {
-        renderLesson(contentBody);
+        await renderLesson(contentBody);
     }
     
     // Показываем навигацию
@@ -189,7 +192,7 @@ async function loadLesson(lessonId) {
     updateNavButtons();
 }
 
-function renderLesson(container) {
+async function renderLesson(container) {
     let html = '';
     
     if (currentLesson.video_url) {
@@ -207,7 +210,7 @@ function renderLesson(container) {
         
         html += `
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/` + videoId + `" frameborder="0" allowfullscreen></iframe>
             </div>
         `;
     }
@@ -225,7 +228,7 @@ function renderLesson(container) {
     } else {
         html += `
             <div class="test-result success" style="margin-top: 20px;">
-                <i class="fas fa-check-circle"></i> Урок пройден! (${progress.score}%)
+                <i class="fas fa-check-circle"></i> Урок пройден! (` + progress.score + `%)
             </div>
         `;
     }
@@ -246,18 +249,18 @@ async function renderTest(container) {
     for (let i = 0; i < questions.length; i++) {
         const q = questions[i];
         html += `
-            <div class="question-item" data-question="${q.id}" data-type="${q.type}" data-correct='${JSON.stringify(q.correct)}'>
-                <div class="question-text">${i+1}. ${escapeHtml(q.text)}</div>
+            <div class="question-item" data-question="` + q.id + `" data-type="` + q.type + `">
+                <div class="question-text">` + (i+1) + `. ` + escapeHtml(q.text) + `</div>
                 <div class="options-list">
         `;
         
         for (let j = 0; j < q.options.length; j++) {
             const inputType = q.type === 'single' ? 'radio' : 'checkbox';
-            const name = `q_${q.id}`;
+            const name = 'q_' + q.id;
             html += `
                 <label class="option">
-                    <input type="${inputType}" name="${name}" value="${j}">
-                    <span>${escapeHtml(q.options[j])}</span>
+                    <input type="` + inputType + `" name="` + name + `" value="` + j + `">
+                    <span>` + escapeHtml(q.options[j]) + `</span>
                 </label>
             `;
         }
@@ -267,9 +270,10 @@ async function renderTest(container) {
     
     const progress = await getProgress(currentUser.id, currentLesson.id);
     const alreadyCompleted = progress && progress.completed;
+    const disabledAttr = alreadyCompleted ? 'disabled' : '';
     
     html += `
-                <button type="button" class="btn btn-primary check-test-btn" onclick="checkTest()" ${alreadyCompleted ? 'disabled' : ''}>
+                <button type="button" class="btn btn-primary check-test-btn" onclick="checkTest()" ` + disabledAttr + `>
                     <i class="fas fa-check-double"></i> Проверить ответы
                 </button>
             </form>
@@ -282,7 +286,7 @@ async function renderTest(container) {
     if (alreadyCompleted) {
         document.getElementById('testResult').innerHTML = `
             <div class="test-result success">
-                <i class="fas fa-check-circle"></i> Тест пройден! (${progress.score}%)
+                <i class="fas fa-check-circle"></i> Тест пройден! (` + progress.score + `%)
             </div>
         `;
     }
@@ -314,7 +318,7 @@ window.checkTest = async function() {
     let totalQuestions = questions.length;
     
     for (const q of questions) {
-        const inputs = document.querySelectorAll(`input[name="q_${q.id}"]:checked`);
+        const inputs = document.querySelectorAll('input[name="q_' + q.id + '"]:checked');
         const selectedValues = Array.from(inputs).map(input => parseInt(input.value));
         
         let isCorrect = false;
@@ -329,8 +333,10 @@ window.checkTest = async function() {
         if (isCorrect) correctCount++;
         
         // Подсвечиваем правильные/неправильные ответы
-        const questionDiv = document.querySelector(`.question-item[data-question="${q.id}"]`);
-        questionDiv.style.borderLeft = isCorrect ? '3px solid #2ed573' : '3px solid #e65c5c';
+        const questionDiv = document.querySelector('.question-item[data-question="' + q.id + '"]');
+        if (questionDiv) {
+            questionDiv.style.borderLeft = isCorrect ? '3px solid #2ed573' : '3px solid #e65c5c';
+        }
     }
     
     const score = Math.round((correctCount / totalQuestions) * 100);
@@ -338,10 +344,10 @@ window.checkTest = async function() {
     
     const resultDiv = document.getElementById('testResult');
     resultDiv.innerHTML = `
-        <div class="test-result ${passed ? 'success' : 'error'}">
-            <h4>${passed ? '✅ Тест пройден!' : '❌ Тест не пройден'}</h4>
-            <p>Правильных ответов: ${correctCount} из ${totalQuestions} (${score}%)</p>
-            ${passed ? '<p>Отлично! Вы можете переходить к следующему уроку.</p>' : '<p>Пожалуйста, повторите материал и попробуйте снова.</p>'}
+        <div class="test-result ` + (passed ? 'success' : 'error') + `">
+            <h4>` + (passed ? '✅ Тест пройден!' : '❌ Тест не пройден') + `</h4>
+            <p>Правильных ответов: ` + correctCount + ` из ` + totalQuestions + ` (` + score + `%)</p>
+            ` + (passed ? '<p>Отлично! Вы можете переходить к следующему уроку.</p>' : '<p>Пожалуйста, повторите материал и попробуйте снова.</p>') + `
         </div>
     `;
     
@@ -356,7 +362,8 @@ window.checkTest = async function() {
         renderSidebar();
         
         // Отключаем кнопку проверки
-        document.querySelector('.check-test-btn').disabled = true;
+        const checkBtn = document.querySelector('.check-test-btn');
+        if (checkBtn) checkBtn.disabled = true;
     }
 };
 
@@ -371,8 +378,8 @@ function updateNavButtons() {
     const prevBtn = document.getElementById('prevLessonBtn');
     const nextBtn = document.getElementById('nextLessonBtn');
     
-    prevBtn.disabled = currentIndex <= 0;
-    nextBtn.disabled = currentIndex >= allLessons.length - 1;
+    if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= allLessons.length - 1;
 }
 
 function navigateLesson(direction) {
@@ -389,15 +396,16 @@ function navigateLesson(direction) {
     }
 }
 
-function showNotification(message, type = 'info') {
+function showNotification(message, type) {
     const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${message}`;
+    notification.className = 'notification ' + type;
+    const icon = type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+    notification.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
     notification.style.cssText = `
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: ${type === 'success' ? '#2ed573' : '#e65c5c'};
+        background: ` + (type === 'success' ? '#2ed573' : '#e65c5c') + `;
         color: white;
         padding: 12px 24px;
         border-radius: 8px;
