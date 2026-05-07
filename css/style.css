@@ -557,9 +557,10 @@ p {
 }
 
 .features-grid {
+    
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
 }
 
 .feature-card {
@@ -569,6 +570,21 @@ p {
     text-align: center;
     box-shadow: var(--shadow);
     transition: var(--transition);
+}
+
+/* Для планшетов - 2 колонки */
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* Для телефонов - 1 колонка */
+@media (max-width: 576px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .feature-card:hover {
